@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+
+  hftdb:
+    image: postgres
+    networks:
+      - hftnet
+    environment:
+      POSTGRES_DB: tododb
+      POSTGRES_USER: gabriele
+      POSTGRES_PASSWORD: passw0rd
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+    volumes:
+      - postgres:/var/lib/postgresql/data/pgdata
+
+    ports:
+      - 5432:5432
+
+  hftbackend:
+    image: maeddes/hftbackend:v1
+    networks:
+      - hftnet
+    environment:
+      SERVER_PORT: 8090
+      SPRING_DATASOURCE_URL: jdbc:postgresql://hftdb:5432/tododb
+    ports:
+      - 8090:8090
+
+  frontend:
+    image: myown.v3
+    networks:
+      - hftnet
+    environment:
+      SERVER_PORT: 8080
+      BACKEND.ENDPOINT: http://hftbackend:8090/todos/
+    ports:
+      - 8080:8080
+
+networks:
+  hftnet:
+    name: hftnet
+
+volumes:
+  postgres:
+    name: postgres

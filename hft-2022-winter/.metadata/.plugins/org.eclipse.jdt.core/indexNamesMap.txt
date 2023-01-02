@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+file:/Users/gabrieleloidold/Documents/HFT%20-%20DPT/MiddlewareTechnology/SpringGitX/Baustelle/.metadata/.plugins/org.eclipse.jdt.core/1865797976.index
+meta_index
